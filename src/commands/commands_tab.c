@@ -15,5 +15,6 @@ const command_map_t commandTab[] = {
     {"CDUP", &cdup_command},
     {"QUIT", &quit_command},
     {"HELP", &help_command},
-    {"NOOP", &noop_command}
+    {"NOOP", &noop_command},
+    {"PASV", &pasv_command}
 };

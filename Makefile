@@ -37,7 +37,10 @@ SRC    +=   src/commands/cdup_command.c
 SRC    +=   src/commands/quit_command.c
 SRC    +=   src/commands/help_command.c
 SRC    +=   src/commands/noop_command.c
+SRC    +=   src/commands/pasv_command.c
 
+## Data transfert
+SRC    +=   src/data/open_connection.c
 
 OBJ     =   $(SRC:.c=.o)
 
