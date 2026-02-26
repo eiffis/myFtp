@@ -83,11 +83,13 @@ void read_command(int fd, struct client_s *client)
     char buffer[CMD_SIZE];
     ssize_t bytes_read;
 
-    bytes_read = read(fd, buffer, sizeof(buffer));
+    bytes_read = read(fd, buffer, sizeof(buffer) - 1);
     if (bytes_read == -1)
         return;
-    if (bytes_read == 0)
+    if (bytes_read == 0){
+        close(client->fd_client);
         return;
+    }
     buffer[bytes_read] = '\0';
     if (strlen(buffer) > 0)
         detect_crlf(buffer, client);
