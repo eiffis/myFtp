@@ -52,6 +52,7 @@ static void get_cmd_arg(char *cmd, struct client_s *client)
 static void parse_command(struct client_s *client)
 {
     char *start = strdup(client->tmp_command);
+    char *save_start = start;
     char *end;
 
     end = strstr(start, "\r\n");
@@ -62,6 +63,7 @@ static void parse_command(struct client_s *client)
         end = strstr(start, "\r\n");
     }
     strcpy(client->tmp_command, start);
+    free(save_start);
     return;
 }
 
@@ -78,19 +80,20 @@ static void detect_crlf(char *buffer, struct client_s *client)
     return;
 }
 
-void read_command(int fd, struct client_s *client)
+int read_command(int fd, struct client_s *client)
 {
     char buffer[CMD_SIZE];
     ssize_t bytes_read;
 
     bytes_read = read(fd, buffer, sizeof(buffer) - 1);
     if (bytes_read == -1)
-        return;
+        return 0;
     if (bytes_read == 0){
         close(client->fd_client);
-        return;
+        return -1;
     }
     buffer[bytes_read] = '\0';
     if (strlen(buffer) > 0)
         detect_crlf(buffer, client);
+    return 0;
 }
