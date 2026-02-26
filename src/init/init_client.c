@@ -19,4 +19,6 @@ void init_client(struct client_s *client, int fd, struct server_s *server)
     client->command = NULL;
     client->arg_cmd = NULL;
     client->tmp_command[0] = '\0';
+    client->pasv_fd = -1;
+    client->mode = -1;
 }

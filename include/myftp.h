@@ -13,6 +13,7 @@
     #define NO_TIMEOUT -1
     #define COMMAND_TAB_SIZE 8
     #define CMD_SIZE 4096
+    #define IP_SIZE 16
     #include <netinet/in.h>
     #include <poll.h>
     #include <sys/types.h>
@@ -40,7 +41,9 @@ typedef struct client_s {
     char *arg_cmd;
     int fd_client;
     int mode; // 0 pour PASV : 1 pour ACTIVE
-    int port;
+    int pasv_fd; // fd pour le pasv
+    int data_port; // port pour le transfert de données
+    char data_ip[IP_SIZE]; // adresse ip du client
 }client_t;
 
 typedef struct clients_tab_s {
