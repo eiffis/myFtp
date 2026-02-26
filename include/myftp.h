@@ -68,6 +68,7 @@ typedef struct command_map_s {
 }command_map_t;
 
 extern const command_map_t commandTab[];
+void free_client(struct client_s *client);
 void quit_command(struct client_s *client);
 void cdup_command(struct client_s *client);
 void user_command(struct client_s *client);
@@ -84,7 +85,7 @@ void add_to_client_tab(struct clients_tab_s *tab, int client_fd,
     struct server_s *server);
 void accept_new_connection(struct ftp_s *ftp);
 void handle_process(struct ftp_s *ftp);
-void read_command(int fd, struct client_s *client);
+int read_command(int fd, struct client_s *client);
 int run_ftp(struct ftp_s *ftp);
 
 #endif
