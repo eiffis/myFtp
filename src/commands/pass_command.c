@@ -19,6 +19,6 @@ void pass_command(struct client_s *client)
         write(client->fd_client, "230 User logged in, proceed.\r\n", 30);
         return;
     }
-    write(client->fd_client, "501 Password incorrect.\r\n", 25);
+    write(client->fd_client, "530 Login incorrect.\r\n", 22);
     return;
 }
