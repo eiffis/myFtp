@@ -26,7 +26,7 @@ void free_client(struct client_s *client)
 
 void quit_command(struct client_s *client)
 {
-    write(client->fd_client, "221 Service closing control connection\r\n", 41);
-    write(client->fd_client, "Logged out if appropriate.\r\n", 29);
+    write(client->fd_client, "221 Service closing control connection\r\n", 40);
+    write(client->fd_client, "Logged out if appropriate.\r\n", 28);
     free_client(client);
 }

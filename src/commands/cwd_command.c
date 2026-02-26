@@ -23,7 +23,6 @@ char *valid_path(struct client_s *client)
     }
     if (realpath(temp_path, real) == NULL ||
         strncmp(real, client->root_path, strlen(client->root_path)) != 0) {
-        free(real);
         return NULL;
     }
     return real;
@@ -35,7 +34,7 @@ void cwd_command(struct client_s *client)
 
     if (client->arg_cmd[0] == '\0'){
         write(client->fd_client,
-            "501 Syntax error in parameters or arguments.\r\n", 47);
+            "501 Syntax error in parameters or arguments.\r\n", 46);
         return;
     }
     real = valid_path(client);
@@ -44,9 +43,9 @@ void cwd_command(struct client_s *client)
         client->current_dir = real;
         client->current_dir = real;
         write(client->fd_client,
-            "250 Requested file action okay, completed.\r\n", 45);
+            "250 Requested file action okay, completed.\r\n", 44);
     } else {
-        write(client->fd_client, "550 Requested action not taken.\r\n", 34);
+        write(client->fd_client, "550 Requested action not taken.\r\n", 33);
     }
     return;
 }

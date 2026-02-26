@@ -16,6 +16,5 @@ void accept_new_connection(struct ftp_s *ftp)
         return;
     add_to_fdstab(&ftp->my_fds, new_client, POLLIN);
     add_to_client_tab(&ftp->my_clients, new_client, &ftp->server);
-    write(new_client, "220 Service ready for new user.\r\n", 34);
-    printf("Nouveau fd : %d\n", new_client);
+    write(new_client, "220 Service ready for new user.\r\n", 33);
 }

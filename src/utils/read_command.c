@@ -9,14 +9,13 @@
 
 static void execute_command(struct client_s *client)
 {
-    printf("Command du client : %s\n", client->command);
     for (int i = 0; i < COMMAND_TAB_SIZE; i++){
         if (strcmp(client->command, commandTab[i].name_cmd) == 0){
             commandTab[i].CommandFunction(client);
             return;
         }
     }
-    write(client->fd_client, "Commande inexistante\r\n", 23);
+    write(client->fd_client, "Incorrect command.\r\n", 20);
     return;
 }
 
