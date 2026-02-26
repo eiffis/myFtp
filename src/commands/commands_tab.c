@@ -14,4 +14,5 @@ const command_map_t commandTab[] = {
     {"PWD", &pwd_command},
     {"CDUP", &cdup_command},
     {"QUIT", &quit_command},
+    {"HELP", &help_command}
 };
