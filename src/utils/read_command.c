@@ -12,10 +12,11 @@ static void execute_command(struct client_s *client)
     for (int i = 0; i < COMMAND_TAB_SIZE; i++){
         if (strcmp(client->command, commandTab[i].name_cmd) == 0){
             commandTab[i].CommandFunction(client);
+            client->command[0] = '\0';
             return;
         }
     }
-    write(client->fd_client, "Incorrect command.\r\n", 20);
+    write(client->fd_client, "500 Syntax error, command unrecognized.\r\n", 41);
     return;
 }
 
