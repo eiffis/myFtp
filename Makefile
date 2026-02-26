@@ -36,6 +36,7 @@ SRC    +=   src/commands/pwd_command.c
 SRC    +=   src/commands/cdup_command.c
 SRC    +=   src/commands/quit_command.c
 SRC    +=   src/commands/help_command.c
+SRC    +=   src/commands/noop_command.c
 
 
 OBJ     =   $(SRC:.c=.o)

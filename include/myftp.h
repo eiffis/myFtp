@@ -11,7 +11,7 @@
     #define ARG_SIZE 4096
     #define MAX_CLIENTS 256
     #define NO_TIMEOUT -1
-    #define COMMAND_TAB_SIZE 7
+    #define COMMAND_TAB_SIZE 8
     #define CMD_SIZE 4096
     #include <netinet/in.h>
     #include <poll.h>
@@ -74,6 +74,7 @@ void cdup_command(struct client_s *client);
 void user_command(struct client_s *client);
 void pass_command(struct client_s *client);
 void cwd_command(struct client_s *client);
+void noop_command(struct client_s *client);
 void help_command(struct client_s *client);
 void pwd_command(struct client_s *client);
 int init_server(struct server_s *server, int port, char *path);
