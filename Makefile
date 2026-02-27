@@ -38,6 +38,7 @@ SRC    +=   src/commands/quit_command.c
 SRC    +=   src/commands/help_command.c
 SRC    +=   src/commands/noop_command.c
 SRC    +=   src/commands/pasv_command.c
+SRC    +=   src/commands/port_command.c
 
 ## Data transfert
 SRC    +=   src/data/open_connection.c

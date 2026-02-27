@@ -16,5 +16,6 @@ const command_map_t commandTab[] = {
     {"QUIT", &quit_command},
     {"HELP", &help_command},
     {"NOOP", &noop_command},
-    {"PASV", &pasv_command}
+    {"PASV", &pasv_command},
+    {"PORT", &port_command}
 };

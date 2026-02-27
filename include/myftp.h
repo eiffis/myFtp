@@ -11,7 +11,7 @@
     #define ARG_SIZE 4096
     #define MAX_CLIENTS 256
     #define NO_TIMEOUT -1
-    #define COMMAND_TAB_SIZE 9
+    #define COMMAND_TAB_SIZE 10
     #define CMD_SIZE 4096
     #define IP_SIZE 16
     #include <netinet/in.h>
@@ -31,7 +31,15 @@ typedef struct server_s {
     char path[PATH_SIZE];
 }server_t;
 
+typedef struct ip_s {
+    int h1;
+    int h2;
+    int h3;
+    int h4;
+}ip_t;
+
 typedef struct client_s {
+    struct ip_s ip;
     int is_logged;
     char *username;
     char *root_path;
@@ -81,6 +89,7 @@ void pasv_command(struct client_s *client);
 void noop_command(struct client_s *client);
 void help_command(struct client_s *client);
 void pwd_command(struct client_s *client);
+void port_command(struct client_s *client);
 int init_server(struct server_s *server, int port, char *path);
 void init_client(struct client_s *client, int fd, struct server_s *server);
 void init_polltab(struct pollfd_tab_s *fds_tab);
@@ -93,6 +102,7 @@ void accept_new_connection(struct ftp_s *ftp);
 void handle_process(struct ftp_s *ftp);
 int read_command(int fd, struct client_s *client);
 int run_ftp(struct ftp_s *ftp);
+
 
 #endif
 
