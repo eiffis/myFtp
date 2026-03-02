@@ -28,6 +28,7 @@ void list_command(struct client_s *client)
 
     if (client->is_logged != 1){
         write(client->fd_client, "530 Not logged in.\r\n", 20);
+        return;
     }
     data_fd = open_connection(client);
     if (data_fd == -1)
