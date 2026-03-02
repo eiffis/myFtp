@@ -16,6 +16,7 @@
     #define CMD_SIZE 4096
     #define IP_SIZE 16
     #include <netinet/in.h>
+    #include <arpa/inet.h>
     #include <poll.h>
     #include <sys/types.h>
     #include <dirent.h>
