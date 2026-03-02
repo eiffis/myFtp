@@ -17,7 +17,7 @@ void pwd_command(struct client_s *client)
     }
     hidden_path = client->current_dir + strlen(client->root_path);
     if (hidden_path[0] == '\0'){
-        write(client->fd_client, "/\r\n", 3);
+        write(client->fd_client, "257 \"/\"\r\n", 9);
     } else {
         if (hidden_path[0] != '/'){
             write(client->fd_client, "/", 1);
@@ -26,6 +26,7 @@ void pwd_command(struct client_s *client)
         } else {
             write(client->fd_client, "257 ", 4);
             write(client->fd_client, hidden_path, strlen(hidden_path));
+            write(client->fd_client, "\r\n", 2);
         }
     }
 }
