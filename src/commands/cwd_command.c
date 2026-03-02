@@ -32,6 +32,10 @@ void cwd_command(struct client_s *client)
 {
     char *real;
 
+    if (client->is_logged != 1){
+        write(client->fd_client, "530 Not logged in.\r\n", 20);
+        return;
+    }
     if (client->arg_cmd[0] == '\0'){
         write(client->fd_client,
             "501 Syntax error in parameters or arguments.\r\n", 46);
@@ -44,8 +48,6 @@ void cwd_command(struct client_s *client)
         client->current_dir = real;
         write(client->fd_client,
             "250 Requested file action okay, completed.\r\n", 44);
-    } else {
+    } else
         write(client->fd_client, "550 Requested action not taken.\r\n", 33);
-    }
-    return;
 }
