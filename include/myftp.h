@@ -12,7 +12,7 @@
     #define MAX_CLIENTS 256
     #define BUFFER_SZ 4096
     #define NO_TIMEOUT -1
-    #define COMMAND_TAB_SIZE 12
+    #define COMMAND_TAB_SIZE 13
     #define CMD_SIZE 4096
     #define IP_SIZE 16
     #include <netinet/in.h>
@@ -93,6 +93,7 @@ void pasv_command(struct client_s *client);
 void noop_command(struct client_s *client);
 void help_command(struct client_s *client);
 void pwd_command(struct client_s *client);
+void del_command(struct client_s *client);
 void retr_command(struct client_s *client);
 void port_command(struct client_s *client);
 void list_command(struct client_s *client);

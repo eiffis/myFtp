@@ -41,6 +41,7 @@ SRC    +=   src/commands/pasv_command.c
 SRC    +=   src/commands/port_command.c
 SRC    +=   src/commands/list_command.c
 SRC    +=   src/commands/retr_command.c
+SRC    +=   src/commands/del_command.c
 
 ## Data transfert
 SRC    +=   src/data/open_connection.c

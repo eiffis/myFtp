@@ -19,5 +19,6 @@ const command_map_t commandTab[] = {
     {"PASV", &pasv_command},
     {"PORT", &port_command},
     {"LIST", &list_command},
-    {"RETR", &retr_command}
+    {"RETR", &retr_command},
+    {"DEL", &del_command}
 };
