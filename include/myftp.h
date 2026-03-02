@@ -10,8 +10,9 @@
     #define PATH_SIZE 4096
     #define ARG_SIZE 4096
     #define MAX_CLIENTS 256
+    #define BUFFER_SZ 4096
     #define NO_TIMEOUT -1
-    #define COMMAND_TAB_SIZE 11
+    #define COMMAND_TAB_SIZE 12
     #define CMD_SIZE 4096
     #define IP_SIZE 16
     #include <netinet/in.h>
@@ -19,9 +20,11 @@
     #include <sys/types.h>
     #include <dirent.h>
     #include <stdio.h>
+    #include <fcntl.h>
     #include <stdlib.h>
     #include <unistd.h>
     #include <string.h>
+    #include <sys/stat.h>
 
 typedef struct server_s {
     int server_fd;
@@ -89,6 +92,7 @@ void pasv_command(struct client_s *client);
 void noop_command(struct client_s *client);
 void help_command(struct client_s *client);
 void pwd_command(struct client_s *client);
+void retr_command(struct client_s *client);
 void port_command(struct client_s *client);
 void list_command(struct client_s *client);
 int init_server(struct server_s *server, int port, char *path);
