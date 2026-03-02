@@ -16,6 +16,7 @@ int open_connection(struct client_s *client)
 
     if (client->mode == 0) {
         data_fd = accept(client->pasv_fd, NULL, NULL);
+        close(client->pasv_fd);
     } else if (client->mode == 1) {
         port_socket = socket(AF_INET, SOCK_STREAM, 0);
         socket_addr.sin_family = AF_INET;

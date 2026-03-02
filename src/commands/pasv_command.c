@@ -49,7 +49,7 @@ int create_data_socket(struct client_s *client)
 
 void pasv_command(struct client_s *client)
 {
-    char buffer[256];
+    char buffer[BUFFER_SZ];
 
     if (client->is_logged != 1) {
         write(client->fd_client, "530 Not logged in.\r\n", 20);
