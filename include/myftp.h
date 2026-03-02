@@ -11,7 +11,7 @@
     #define ARG_SIZE 4096
     #define MAX_CLIENTS 256
     #define NO_TIMEOUT -1
-    #define COMMAND_TAB_SIZE 10
+    #define COMMAND_TAB_SIZE 11
     #define CMD_SIZE 4096
     #define IP_SIZE 16
     #include <netinet/in.h>
@@ -90,11 +90,13 @@ void noop_command(struct client_s *client);
 void help_command(struct client_s *client);
 void pwd_command(struct client_s *client);
 void port_command(struct client_s *client);
+void list_command(struct client_s *client);
 int init_server(struct server_s *server, int port, char *path);
 void init_client(struct client_s *client, int fd, struct server_s *server);
 void init_polltab(struct pollfd_tab_s *fds_tab);
 void init_client_tab(struct clients_tab_s *clients_tab);
 void init_ftp(struct ftp_s *ftp, int port, char *path);
+int open_connection(struct client_s *client);
 void add_to_fdstab(struct pollfd_tab_s *tab, int fd, short event);
 void add_to_client_tab(struct clients_tab_s *tab, int client_fd,
     struct server_s *server);
