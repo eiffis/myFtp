@@ -14,16 +14,17 @@ int open_connection(struct client_s *client)
     socklen_t socket_len = sizeof(struct sockaddr_in);
     int data_fd = -1;
 
-    if (client->mode == 0) {
+    if (client->mode == 0 && client->pasv_fd != -1) {
         data_fd = accept(client->pasv_fd, NULL, NULL);
         close(client->pasv_fd);
     } else if (client->mode == 1) {
         port_socket = socket(AF_INET, SOCK_STREAM, 0);
         socket_addr.sin_family = AF_INET;
         socket_addr.sin_port = htons(client->data_port);
-        socket_addr.sin_addr.s_addr = htonl(atoi(client->data_ip));
+        socket_addr.sin_addr.s_addr = inet_addr(client->data_ip);
         data_fd = connect(port_socket,
             (struct sockaddr *)&socket_addr, socket_len);
+        close(port_socket);
     }
     return data_fd;
 }
