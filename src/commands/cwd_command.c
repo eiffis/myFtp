@@ -45,7 +45,6 @@ void cwd_command(struct client_s *client)
     if (real != NULL){
         free(client->current_dir);
         client->current_dir = real;
-        client->current_dir = real;
         write(client->fd_client,
             "250 Requested file action okay, completed.\r\n", 44);
     } else
