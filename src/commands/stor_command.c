@@ -41,9 +41,9 @@ void stor_command(struct client_s *client)
     if (fork() == 0){
         upload_file(client, data_fd);
         close(data_fd);
+        write(client->fd_client, "226 Closing data connection.\r\n", 30);
         exit(0);
     }
     close(data_fd);
     client->mode = -1;
-    write(client->fd_client, "226 Closing data connection.\r\n", 30);
 }
