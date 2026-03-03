@@ -33,8 +33,10 @@ void list_command(struct client_s *client)
     data_fd = open_connection(client);
     if (data_fd == -1)
         return;
-    write(data_fd,
+    write(client->fd_client,
         "150 File status okay; about to open data connection.\r\n", 54);
     list_directory(data_fd);
-    write(data_fd, "226 Closing data connection.\r\n", 30);
+    close(data_fd);
+    client->mode = -1;
+    write(client->fd_client, "226 Closing data connection.\r\n", 30);
 }

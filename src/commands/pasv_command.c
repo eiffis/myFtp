@@ -60,7 +60,7 @@ void pasv_command(struct client_s *client)
         return;
     }
     snprintf(buffer, sizeof(buffer),
-        "227 Entering Passive Mode (127.0.0.1,%d,%d).\r\n",
+        "227 Entering Passive Mode (127,0,0,1,%d,%d).\r\n",
         client->data_port / 256, client->data_port % 256);
     write(client->fd_client, &buffer, strlen(buffer));
     return;

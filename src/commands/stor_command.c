@@ -11,13 +11,16 @@ void upload_file(struct client_s *client, int data_fd)
 {
     FILE *fptr;
     char buffer[BUFFER_SZ];
+    char full_path[PATH_SIZE];
     size_t bytes_read;
 
     if (client->arg_cmd[0] == '\0')
         return;
+    snprintf(full_path, PATH_SIZE, "%s/%s", client->current_dir,
+        client->arg_cmd);
     bytes_read = read(data_fd, buffer, sizeof(buffer));
     buffer[bytes_read] = '\0';
-    fptr = fopen(client->arg_cmd, "w");
+    fptr = fopen(full_path, "w");
     fprintf(fptr, "%s", buffer);
     fclose(fptr);
 }
@@ -25,7 +28,6 @@ void upload_file(struct client_s *client, int data_fd)
 void stor_command(struct client_s *client)
 {
     int data_fd;
-    pid_t transfert_pid;
 
     if (client->is_logged != 1){
         write(client->fd_client, "530 Not logged in.\r\n", 20);
@@ -34,10 +36,14 @@ void stor_command(struct client_s *client)
     data_fd = open_connection(client);
     if (data_fd == -1)
         return;
-    write(data_fd,
+    write(client->fd_client,
         "150 File status okay; about to open data connection.\r\n", 54);
-    transfert_pid = fork();
-    if (transfert_pid == 0)
+    if (fork() == 0){
         upload_file(client, data_fd);
-    write(data_fd, "226 Closing data connection.\r\n", 30);
+        close(data_fd);
+        exit(0);
+    }
+    close(data_fd);
+    client->mode = -1;
+    write(client->fd_client, "226 Closing data connection.\r\n", 30);
 }
