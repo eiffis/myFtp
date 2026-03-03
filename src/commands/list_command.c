@@ -7,12 +7,14 @@
 
 #include "myftp.h"
 
-void list_directory(int data_fd)
+void list_directory(int data_fd, struct client_s *client)
 {
     FILE *fp;
     char path[PATH_SIZE];
+    char cmd[PATH_SIZE];
 
-    fp = popen("ls -l", "r");
+    snprintf(cmd, PATH_SIZE, "ls -l %s", client->current_dir);
+    fp = popen(cmd, "r");
     if (fp == NULL)
         return;
     while (fgets(path, PATH_SIZE, fp) != NULL){
@@ -35,7 +37,7 @@ void list_command(struct client_s *client)
         return;
     write(client->fd_client,
         "150 File status okay; about to open data connection.\r\n", 54);
-    list_directory(data_fd);
+    list_directory(data_fd, client);
     close(data_fd);
     client->mode = -1;
     write(client->fd_client, "226 Closing data connection.\r\n", 30);

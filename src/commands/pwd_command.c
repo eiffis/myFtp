@@ -10,6 +10,7 @@
 void pwd_command(struct client_s *client)
 {
     char *hidden_path;
+    char path[PATH_SIZE];
 
     if (client->is_logged != 1){
         write(client->fd_client, "530 Not logged in.\r\n", 20);
@@ -20,13 +21,10 @@ void pwd_command(struct client_s *client)
         write(client->fd_client, "257 \"/\"\r\n", 9);
     } else {
         if (hidden_path[0] != '/'){
-            write(client->fd_client, "/", 1);
-            write(client->fd_client, hidden_path, strlen(hidden_path));
-            write(client->fd_client, "\r\n", 2);
+            snprintf(path, PATH_SIZE, "257 \"/%s\"\r\n", hidden_path);
         } else {
-            write(client->fd_client, "257 ", 4);
-            write(client->fd_client, hidden_path, strlen(hidden_path));
-            write(client->fd_client, "\r\n", 2);
+            snprintf(path, PATH_SIZE, "257 \"%s\"\r\n", hidden_path);
         }
+        write(client->fd_client, path, strlen(path));
     }
 }
