@@ -21,5 +21,6 @@ const command_map_t commandTab[] = {
     {"LIST", &list_command},
     {"RETR", &retr_command},
     {"DEL", &del_command},
-    {"STOR", &stor_command}
+    {"STOR", &stor_command},
+    {"TYPE", &type_command}
 };

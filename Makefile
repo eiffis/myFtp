@@ -43,6 +43,7 @@ SRC    +=   src/commands/list_command.c
 SRC    +=   src/commands/retr_command.c
 SRC    +=   src/commands/del_command.c
 SRC    +=   src/commands/stor_command.c
+SRC    +=   src/commands/type_command.c
 
 ## Data transfert
 SRC    +=   src/data/open_connection.c
