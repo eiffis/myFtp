@@ -14,7 +14,8 @@ int check_args(struct client_s *client)
         return -1;
     }
     if (client->arg_cmd[0] == '\0') {
-        write(client->fd_client, "501 Syntax error in parameters.\r\n", 33);
+        write(client->fd_client,
+            "501 Syntax error in parameters or arguments.\r\n", 46);
         return -1;
     }
     return 0;
