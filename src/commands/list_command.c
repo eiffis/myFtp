@@ -18,10 +18,11 @@ void list_directory(int data_fd, struct client_s *client)
     if (fp == NULL)
         return;
     while (fgets(path, PATH_SIZE, fp) != NULL){
-        path[strlen(path)] = '\0';
+        path[strlen(path) - 1] = '\0';
         write(data_fd, path, strlen(path));
-        write(data_fd, "\r\n", 1);
+        write(data_fd, "\r\n", 2);
     }
+    pclose(fp);
 }
 
 void list_command(struct client_s *client)
