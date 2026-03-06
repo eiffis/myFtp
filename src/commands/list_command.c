@@ -34,8 +34,10 @@ void list_command(struct client_s *client)
         return;
     }
     data_fd = open_connection(client);
-    if (data_fd == -1)
+    if (data_fd == -1){
+        write(client->fd_client, "425 Impossible listing directory.\r\n", 35);
         return;
+    }
     write(client->fd_client,
         "150 File status okay; about to open data connection.\r\n", 54);
     list_directory(data_fd, client);
