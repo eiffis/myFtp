@@ -31,7 +31,7 @@ void upload_file(struct client_s *client, int data_fd)
 void stor_command(struct client_s *client)
 {
     int data_fd;
- 
+
     if (client->is_logged != 1){
         write(client->fd_client, "530 Not logged in.\r\n", 20);
         return;
