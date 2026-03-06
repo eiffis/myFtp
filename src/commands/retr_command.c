@@ -75,6 +75,7 @@ void retr_command(struct client_s *client)
     }
     data_fd = open_connection(client);
     if (data_fd == -1){
+        write(client->fd_client, "425 Impossible retrieve file.\r\n", 31);
         close(fd_file);
         return;
     }
