@@ -26,10 +26,6 @@ void free_client(struct client_s *client)
 
 void quit_command(struct client_s *client)
 {
-    if (client->is_logged != 1){
-        write(client->fd_client, "530 Not logged in.\r\n", 20);
-        return;
-    }
     write(client->fd_client, "221 Service closing control connection\r\n", 40);
     free_client(client);
 }
