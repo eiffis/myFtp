@@ -9,33 +9,26 @@
 
 void upload_file(struct client_s *client, int data_fd)
 {
-    FILE *fptr;
+    int fd_file;
     char buffer[BUFFER_SZ];
     char full_path[PATH_SIZE];
     size_t bytes_read;
 
-    if (client->arg_cmd[0] != '\0'){
-        write(client->fd_client,
-            "501 Syntax error in parameters or arguments.\r\n", 46);
-        return;
-    }
     snprintf(full_path, PATH_SIZE, "%s/%s", client->current_dir,
         client->arg_cmd);
+    fd_file = open(full_path, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+    if (fd_file == -1)
+        return;
     bytes_read = read(data_fd, buffer, sizeof(buffer));
-    buffer[bytes_read] = '\0';
-    fptr = fopen(full_path, "w");
-    fprintf(fptr, "%s", buffer);
-    fclose(fptr);
+    while (bytes_read > 0) {
+        write(fd_file, buffer, bytes_read);
+        bytes_read = read(data_fd, buffer, sizeof(buffer));
+    }
+    close(fd_file);
 }
 
-void stor_command(struct client_s *client)
+void core_function(struct client_s *client, int data_fd)
 {
-    int data_fd;
-
-    if (client->is_logged != 1){
-        write(client->fd_client, "530 Not logged in.\r\n", 20);
-        return;
-    }
     data_fd = open_connection(client);
     if (data_fd == -1){
         write(client->fd_client, "425 Impossible to stor the file.\r\n", 34);
@@ -51,4 +44,20 @@ void stor_command(struct client_s *client)
     }
     close(data_fd);
     client->mode = -1;
+}
+
+void stor_command(struct client_s *client)
+{
+    int data_fd = -1;
+
+    if (client->is_logged != 1){
+        write(client->fd_client, "530 Not logged in.\r\n", 20);
+        return;
+    }
+    if (client->arg_cmd[0] == '\0'){
+        write(client->fd_client,
+            "501 Syntax error in parameters or arguments.\r\n", 46);
+        return;
+    }
+    core_function(client, data_fd);
 }
