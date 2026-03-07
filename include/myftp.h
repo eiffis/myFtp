@@ -15,6 +15,7 @@
     #define COMMAND_TAB_SIZE 15
     #define CMD_SIZE 4096
     #define IP_SIZE 16
+    #define UPLOAD_PERMS 0666
     #include <netinet/in.h>
     #include <arpa/inet.h>
     #include <poll.h>
