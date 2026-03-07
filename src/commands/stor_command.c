@@ -16,7 +16,7 @@ void upload_file(struct client_s *client, int data_fd)
 
     snprintf(full_path, PATH_SIZE, "%s/%s", client->current_dir,
         client->arg_cmd);
-    fd_file = open(full_path, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+    fd_file = open(full_path, O_WRONLY | O_CREAT | O_TRUNC, UPLOAD_PERMS);
     if (fd_file == -1)
         return;
     bytes_read = read(data_fd, buffer, sizeof(buffer));
