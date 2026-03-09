@@ -10,7 +10,7 @@ NAME    =   myftp
 CC      =   epiclang
 
 ## Main
-SRC     =   main.c
+SRC     =   src/main.c
 SRC    +=	src/run_ftp.c
 
 ## Initialisation
